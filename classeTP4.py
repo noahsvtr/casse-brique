@@ -28,12 +28,16 @@ class briqueclassique:
         else:
             return False
 
-    def cotetouche(self, balle):
+    def cotetouche(self, balle): # dit si la balle a touche un cote ou le dessus / dessous
         gauche = balle.x + balle.rayon - self.__x
         droite = self.__x + self.__longueur - (balle.x - balle.rayon)
         haut = balle.y + balle.rayon - self.__y
-        bas = self.__y
-
+        bas = self.__y + self.__largeur - (balle.y - balle.rayon)
+        if min (gauche, droite) < min (haut,  bas): # la côté touché est celui où la valeur gauche / droite / bas / haut est la plus petite
+            return "cote"
+        else:
+            return "dessusdessous"
+        
 
     def supp(self, balle, points): #supprime la brique si elle est touchée par la balle et augmente le score du joueur
         if self.touche(self,balle) == True:
@@ -46,7 +50,7 @@ class briqueclassique:
 #          et a un effet sur elles qui diffère selon le type de la brique.
 
 class balle:
-    def __init__(self, x, y, dx, dy, caneva, angle, vitesse, fenetre, rayon=10, couleur = "red"):
+    def __init__(self, x, y, dx, dy, caneva, angle, vitesse, fenetre, briques, rayon=10, couleur = "red"):
             self.__x = x
             self.__y = y
             self.__rayon = rayon
@@ -83,6 +87,11 @@ class balle:
 
         self.__x = self.__x + self.__dx
         self.__y = self.__y + self.__dy
+        
+        
+        
+        
+        
         self.__caneva.coords(self.__id, self.__x - self.__rayon, self.__y - self.__rayon, self.__x + self.__rayon, self.__y + self.__rayon )
 
         self.__fenetre.after(20, self.deplacement)

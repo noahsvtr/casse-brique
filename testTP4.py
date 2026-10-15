@@ -8,16 +8,21 @@ import math
 import numpy as np
 #test de l'affichage 
 Mafenetre = Tk.Tk()
-Canevas = Tk.Canvas(Mafenetre, width= 1300 , height = 600, bg = 'black')
+Canevas = Tk.Canvas(Mafenetre, width= 700 , height = 700, bg = 'black')
 Canevas.pack(padx=5,pady=5)
 
 #Canevas.create_rectangle(20, 50, 80, 30, fill='green', width=0)
 #Canevas.create_oval(60 - 10, 30 - 10, 60 + 10, 30 + 10, width = 0, fill = 'red')
-
+briques =[]
+for i in range (11):
+    for j in range (11):
+        brique = classe.briqueclassique(20 + j*60, 50 + i * 30, Canevas, 25, 55)
+        brique.rectangle()
+        briques.append(brique)
 angle = np.random.uniform(0, 2* math.pi)
 vitesse = np.random.uniform(1.8, 2)*5
 dx = vitesse*math.cos(angle)
 dy = vitesse*math.sin(angle)
-testballe = classe.balle(650,300, dx, dy, Canevas, angle, vitesse, Mafenetre)
+testballe = classe.balle(650,300, dx, dy, Canevas, angle, vitesse, Mafenetre, briques)
 testballe.deplacement()
 Mafenetre.mainloop()
