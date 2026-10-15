@@ -28,6 +28,13 @@ class briqueclassique:
         else:
             return False
 
+    def cotetouche(self, balle):
+        gauche = balle.x + balle.rayon - self.__x
+        droite = self.__x + self.__longueur - (balle.x - balle.rayon)
+        haut = balle.y + balle.rayon - self.__y
+        bas = self.__y
+
+
     def supp(self, balle, points): #supprime la brique si elle est touchée par la balle et augmente le score du joueur
         if self.touche(self,balle) == True:
             self.caneva.delete(self.rectangle)
@@ -39,29 +46,43 @@ class briqueclassique:
 #          et a un effet sur elles qui diffère selon le type de la brique.
 
 class balle:
-    def __init__(self, x, y, caneva, vitesse, rayon=10, couleur = "red"):
+    def __init__(self, x, y, dx, dy, caneva, angle, vitesse, fenetre, rayon=10, couleur = "red"):
             self.__x = x
             self.__y = y
             self.__rayon = rayon
             self.__couleur = couleur
-            self.__canva = caneva
-            self.__vitesse = 
-
-    def disque(self, caneva): #crée le visuel de la balle
-        Balle = caneva.create_oval(self.__x - self.__rayon, self.__y - self.__rayon, self.__x + self.__rayon, self.__y + self.__rayon, width = 1, fill = self.__couleur)
+            self.__caneva = caneva
+            self.__vitesse = vitesse
+            self.__angle = angle
+            self.__fenetre = fenetre
+            self.__dx = dx
+            self.__dy = dy
+            self.disque()
+    def disque(self): #crée le visuel de la balle
+        self.__id = self.__caneva.create_oval(self.__x - self.__rayon, self.__y - self.__rayon, self.__x + self.__rayon, self.__y + self.__rayon, width = 1, fill = self.__couleur)
 
     def deplacement(self): # permet à la balle de se déplacer selon les règles de déplacement définies
-        angle = math.random.uniform(0.2 * math.pi)
-        DX = self.vitesse*math.cos(angle)
-        DY = self.vitesse*math.sin(angle)
+        largeur = int(self.__caneva.cget("width"))
+        hauteur = int(self.__caneva.cget("height"))
+        if self.__x + self.__rayon + self.__dx > largeur:
+            self.__x = 2*(largeur - self.__rayon) - self.__x
+            self.__dx = - self.__dx
 
-        if self.__x + self.__rayon + DX > self.__caneva.largeur:
-            self.__x = 2*(self.__caneva.largeur - self.__rayon) - self.__x
-            DX = - DX
-
-        if self.__x - self.__rayon + DX < 0 :
+        if self.__x - self.__rayon + self.__dx < 0 :
             self.__x = 2 * self.__rayon - self.__x
-            DX = -DX
+            self.__dx = -self.__dx
         
         
-        if self.__y + self.__rayon + DY > self.caneva.
+        if self.__y + self.__rayon + self.__dy > hauteur:
+            self.__y = 2*(hauteur - self.__rayon) - self.__y
+            self.__dy = -self.__dy
+
+        if self.__y - self.__rayon + self.__dy < 0:
+            self.__y = 2*self.__rayon - self.__y
+            self.__dy = -self.__dy
+
+        self.__x = self.__x + self.__dx
+        self.__y = self.__y + self.__dy
+        self.__caneva.coords(self.__id, self.__x - self.__rayon, self.__y - self.__rayon, self.__x + self.__rayon, self.__y + self.__rayon )
+
+        self.__fenetre.after(20, self.deplacement)
