@@ -1,7 +1,7 @@
 #Objectifs: définir les différentes classes pour réaliser le jeu de casse brique pour le TP4 de développement python, CPE Lyon
 #Crée le 08/10/2026
 #Réalisé par SAVATIER Noah / TORTEROLO Alexis
-#TO DO: classe brique, classe raquette, classse balle
+#TO DO: classe raquette, colisions avec la brique
 #Infos : taille de la fenêtre ( 700*700+400+200)
 
 import tkinter as tk
@@ -87,7 +87,8 @@ class balle:
 
         self.__x = self.__x + self.__dx
         self.__y = self.__y + self.__dy
-        
+
+        for brique in briques 
         
         
         
@@ -95,3 +96,11 @@ class balle:
         self.__caneva.coords(self.__id, self.__x - self.__rayon, self.__y - self.__rayon, self.__x + self.__rayon, self.__y + self.__rayon )
 
         self.__fenetre.after(20, self.deplacement)
+
+
+#Classe 3: Raquette. Concept: raquette qui fait rebondir la balle.
+#Située en bas de la fenêtre.
+
+class raquette:
+    def __init__(self):
+        
