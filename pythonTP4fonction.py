@@ -37,9 +37,24 @@ def Nouveaulance():
 
     Tk.Label(frame1, text= "Vies:" +str(num), fg="yellow", bg='black').pack(side='left', padx= 5, pady= 5) #crée un label pour afficher le nombre de vies restantes
     Tk.Label(frame2, text= "Score:" +str(score), fg="yellow", bg='black').pack(side='right', padx= 5, pady= 5) #crée un label pour afficher le nombre de vies restantes
+    
+
+    BouttonQuitt1= Tk.Button(nw,fg='red',text='Quitter',command=nw.destroy) #boutton pour quitter le jeu
+    BouttonQuitt1.pack(side = 'bottom') 
+
+
+
+    BouttonRecommencer= Tk.Button(nw,fg='black',text='Recommencer',command=Nouveaulance) #boutton pour recommencer le jeu
+    BouttonRecommencer.pack(side = 'bottom') 
+
+
+
+
+
     Canevas = Tk.Canvas(nw, width= 700 , height = 550, bg = 'black')
     Canevas.pack(padx=5,pady=5)
 
+    
 
 
 
