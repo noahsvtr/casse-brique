@@ -7,7 +7,7 @@ mw["bg"]='black' #fenetre de couleur noir
 mw.geometry('700x700') #geométrie de la fenêtre (largeur x hauteur )
 num = 0
 score = 0
-def Nouveaulance():
+def Nouveaulance_prime():
     print ("Lancement du jeu") #affiche un message dans la console pour indiquer que le jeu est lancé
     mw.destroy() #ferme la fenêtre principale
     nw=Tk.Tk() #crée une nouvelle fenêtre principale
